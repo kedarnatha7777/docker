@@ -1,0 +1,359 @@
+
+ses:1 Docker 
+
+1. Baremeteal server vs V.M vs Container 
+2. what is containerization? 
+A. Packing of an Application with all it depedecies ((i.e libraries, configaration files, & run time ) is called containerization.
+3. Adv and dis-adv of docker?
+4.what is docker-image?
+A. Docker-image is a pack of 
+							1. Bare minium O.S
+							2. Application run time 
+							3. systeam packages & depedecies 
+							4. Application code 
+							* portable in nature 
+							* static file 
+							* immutable in narure (no one can change it )
+5. What is docker container?
+A. container is a running instance of docker images is called docker container.
+	
+	light weight system 
+	high level
+	
+6. what is vertuvalization ?
+A. A big server can be logically divided in to multiple servers is called vertuvalization.
+
+
+Install docker 
+
+   12  09/09/25 12:09:07 sudo dnf -y install dnf-plugins-core
+   13  09/09/25 12:09:16 sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+   14  09/09/25 12:09:47 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+   
+   the user to the docker group 
+
+Docker commands 
+Docker version -> to check docker is installed or not 
+docker images -> to list the images 
+docker ps  -> to get runnung containers 
+docker pull nginx -> 1st docker daemon checks in the local repo if is not in the local repo 
+					then it will pull the image from the remote repo 
+					
+					tag is vertion 
+		image tag 	<username>/<image_name>: <version>
+					kedarnath1477/nginx:1.0
+					kedarnath1477/nginx:1.1
+		for official images no need of user name 
+docker pull alpine 
+docker pull nginx:alpine 
+
+
+docker create nginx:		
+					
+docker ps -a -> To get running containers with stopped containers 
+
+
+#  docker image commands 
+	docker create nginx:1.0 
+
+docker logs <container_id> -> to check log of an container 
+dokcer network ls -> to get all the docker networks 
+docker 
+
+
+
+
+
+
+
+#=========================
+
+54.86.240.69 | 172.31.92.249 | t2.micro | null
+[ ec2-user@ip-172-31-92-249 ~ ]$ history
+    1  09/09/25 11:33:21 sudo su -
+    2  09/09/25 11:55:25 id
+    3  09/09/25 11:55:30 vmstat
+    4  09/09/25 11:55:57 free
+    5  09/09/25 11:56:03 free -m
+    6  09/09/25 11:56:19 free -k
+    7  09/09/25 11:57:00 cat proc/meminfo
+    8  09/09/25 11:57:35 free -h
+    9  09/09/25 11:57:59 cat /proc/meminfo
+   10  09/09/25 11:58:57 clear
+
+
+54.86.240.69 | 172.31.92.249 | t2.micro | null
+[ ec2-user@ip-172-31-92-249 ~ ]$
+
+   12  09/09/25 12:09:07 sudo dnf -y install dnf-plugins-core
+   13  09/09/25 12:09:16 sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+   14  09/09/25 12:09:47 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+Docker hub login's :
+=========
+user name = kedarnath1477
+password = kedarnarth@1477 
+
+docker image name:
+	kedarnath1477/ngix:1.0
+	kedarnath1477/ngix:1.1
+	
+nginx -> 
+
+
+************* 2 nd class *************
+
+
+Recap :
+
+basic commands:
+	sudo usermod -aG docker ec2-user 
+	docker images
+	docker ps  -> to chekc the running containers 
+	docker ps -a -> to check all the containers with their status 
+	docker rmi <image_id>  -> to delete the docker image 
+	docker rm <container_id>  -> to delere the container 
+	docker rmi `docker images -a -q` -> to delete all the docker images 
+	docker rm `docker ps -a -q` -> delete the all the stoped containers 
+	docker rm -f `docker -a -q` -> to delete all container with irrespective of status 
+	docker system prune -y -> to remove all the containers, containers , network, volumes & cache of the docker system
+	docker run  -> which is equal to pull, create the container & run the container 
+	docker built -t from:1.0 . -> to built the docker image for the docker file . Here -t means tagging for the specific image 
+	docekr create from:1.0 -> to crete the container from the image
+	docekr start from:1.0 -> to start the container 
+	docker run from:1.0 -> to run the container 
+	docker run -d -p 8000:80 from:1.0 -> to run the container
+	docker logs <container_id> -> to check the logs 
+	#  docker logs <image_id>  -> to chekc the image logs 
+		we cant apply logs to images But we can apply the inspect commands to the image 
+	docker inspect <container_id> -> to inspect the container
+	docekr inspect <image_id> -> to inspect the image 
+	docker tag from:1.0 kedarnarth1477/from:1.0 -> to rename or retag the image 
+	docker push kedarnarth1477/from:1.0 -> to push the image to remote hub 
+	
+	docker exec -it <container_id> bash -> to login in to the container 
+	docker run -it from:1.1 bash -> create the container and then login into the container 
+	docker images --filter "label=project=expense" -> by using label we can filter the specific image 
+	
+Docker instructions :
+
+1. FROM :  Uesd to build the new image fromt the bace images linus alpine, almalinux ete
+		   A valid Dockerfile must start with a FROM instruction.
+		   
+2. RUN :  Used used to install package & configure 
+		  to install the systeam packages 
+		  Excute at the time of image creation 
+		  Run will excuite a time of image creation called Docker Build 
+		
+3. CMD : In the sysytem ctl is worked. Because of its minimalist os 
+		 Here the CMD will at time of container creation called docker run.
+		 helps in to run the container at infinete times 
+		 
+		 
+
+4.LABEL: labels are the kay value pairs mainly used to sirt or filter the specific image from the list of images 
+		 docker images --filter "label=project=expense"
+		 
+5. EXPOSE: Used to know the what is the port is opening in this container 
+			it  is only fir the 
+			
+
+6. how can we push the docker image to the docker hub 
+
+docker push <user_name>/<image_name>:<tag>
+docker push kedarnath1477/expose:1.0
+
+=============================================
+cls:3 
+
+7. ENV : Env is the key value pair or the variable maily usefuly when we log in to terminal an container
+		docekr exec -it <container_id> bash
+		env 
+		the we can see all the env varibles here 
+
+8. copy: copy is usefull for copy the file form the workspace to inside the container to a specific directory 
+
+FROM almalinx:9 
+RUN dnf install nginx -y 
+rm -fr /usr/share/nginx/html/index.html 
+copy hello.html /usr/share/nginx/html/index.html  
+
+
+docker built -t copy:1.0 . 
+docker run -d -p 9000:80 copy:1.0 
+now check with the publi_ip:9000
+
+9. Add: Add instruction also usefull for copy the file form the workspace to inside the container to a specific directory 
+		but it have 2 more capabilities 
+		1. downlode the content form the internet to the container 
+		2. it will directly un-tar the files 
+
+FROM almalinx:9 
+ADD <url.sample.txt> /tmp/sample.txt
+CMD["sleep","900"]	
+
+FROM almalinx:9 
+ADD session_01.tar /tmp/session_01
+CMD["sleep","900"]
+
+10. Entrypoint: we cant over-ride entry point at time of run time. If we try to do it will append to the command inside.
+				but we can use both the cmd and entry pont at same time for the better results 
+				
+FROM almalinux:9 
+CMD ["ping","-c5","goole.com"] -> build and run the container
+
+docker run -d entrypoint:v1.0 
+docker run -d entrypoint:v1.0 ping -c10 yahoo.com -> now it oveer the CMD values in the container 
+
+FROM almalinux:9 
+ENTRYPOINT ["ping","-c5","goole.com"]
+docker run -d entrypoint:v2.0 
+docker run -d entrypoint:v2.0 ping -c10 yahoo.com -> it will not run the container 
+
+docekr logs image_id 
+
+FOr the better results we use boht CMD and ENtry point 
+FROM almalinux:9 
+CMD["google.com"]
+ENTRYPOINT["ping","-c7"]
+
+In the above case CMD -> is used to pass the default arguments or destination address to  the ENtrypoint . 
+
+11. CMD vs Entrypoint 
+
+12 USER:  Run a container with the root user is a securit vulernability issue . If any may get access the underling file-System of host the docker sysytem 
+			As all the container are using the shared file systeam. may possible to delete the containers also. So for that case only we need to change the 
+			user in the container at before one command in the dockerfile 
+FROM almalinux:9
+RUN dnf install nginx -y 
+CMD["nginx","-g","daemon off;"]
+build and run the container now login in to the container check the user # -> root user 			
+
+FROM almalinux:9
+RUN dnf install nginx -y 
+USER expense 
+CMD["nginx","-g","daemon off;"]
+build and run the container now login in to the container check the user $ -> normal  user 
+
+13. WORKDIR: is nothing but PWD as the change directory id cd is not excuited in the image 
+			 At that time w can use the WORKDIR to move form one location to another 
+			 
+			 FROM almalinux:9
+			 RUN mkdir /app/server
+			 run cd /app/server
+			 RUN pwd 
+			 CMD["slepp","100"]
+			 now try to build and run the image 
+			 
+			 
+			 FROM almalinux:9
+			 RUN mkdir /app/server
+			 WORKDIR /app/server
+			 RUN pwd 
+			 CMD["slepp","100"]
+			  
+			  now build and then run the container and check the pwd 
+
+14. ARG: is only one instruction which may use befor the FORM instruction mainly used to provide the values for an argument
+	
+	ARG version 
+	FROM almalinux:${version}
+	build 
+	docker build -t arg:v1.0 --build-arg version=8 
+	now run the command 
+	we ARG can used to pass the default values to an argument . if we required we may over-ride values at build time 
+		ARG version
+		FORM almalinux:${version:-8}
+		ARG trainer 
+		ARG course 
+		ARG duration 
+		RUN echo "course is ${course},trainer is ${trainer} & duration is ${duration}" 
+		
+		build -d arg:v1.1 --build-arg trainer= trai duration= dur 
+		
+15. ONBUILD: when one is using the our images ONBUILD will force the user to keep the files in their work space 
+
+	FORM almalinux:9
+	RUN dnf install nginx -y 
+	RUN rm -rf /usr/share/nginx/html/index.html
+	ONBUILD index.html /usr/share/nginx/html/index.html
+	CMD ["nginx","-g","daemon off;"]
+	build 
+	
+	
+	FROM onbuild:v1.0
+	onbuild index.html  /usr/share/nginx/html/index.html
+	
+	now build and then run 
+	
+========================Expense-Application====================================
+
+MYSQL: 
+	FROM Mysql:8.0
+	ENV MYSQL_ROOT_PASSWORD = ExpenseApp@1 \
+		myswl_user = Expense-Application
+		mysql_passowrd = ExpenseApp@1
+		MYSQL_DATABASE= Transcations
+	COPY scripts/*.sql  /docker-entrypoint-initdb.d
+	
+	docker build -d mysql:v1.0
+	docker run -d -p 3306:3306 --name mysql msql:v1.0 -> to create a container with the specific name 
+========================================================
+cls:4 
+
+	
+===================
+Docker Networking 
+
+ifcong -> to get the network info 
+enc5 -> id the default network of the 
+docekr0 -> is the network is created by the docker daemon 
+
+docker network ls 
+docker network create expense 
+docker network ls 
+
+docker network connect expense mysql 
+docker network disconnect expense mysql 
+docker network inspect expense 
+docker network rm expense 
+docker network prune -> to remove all the unused networks in 
+
+Types of networks in docker:
+	1. Default Network (Bridge network) : this is created by the Docker daemon when the docker is started in host 
+	2. host Network: By using this host network we can connet directly to the container. But it may leads to some scurity issue 
+	3. macvlan network : Assigining a specific mac to a container is called Macvlan 
+	4. Overlay network : it connects multiple daemon together.
+===================================
+Docker network create expense 
+docekr network ls 
+docker buikd -t mysql:v1.0 .
+Docker run -d -p 3306:3306 --name mysql --network expense mysql:v1.o 
+
+troubleshoot Commands in Doceke : 
+	Manually we need to check once container can communicate with the other container with the help of Expense network 
+	
+	backend to mysql 
+	1. curl http://localhost:8080/tranactions 
+	2 . By login in to the container
+		docker exec -it backend bash
+		http://localhost:8080/tranactions 		
+		 mysql 
+		 install mysql clint based on the OS type 
+		mysql -h mysql -u root -pExpenseApp@1 
+		mysql -h mysql -u expense -pExpenseApp@1 
+		mysql 
+		show databases 
+		use transcations
+	3. From the internet if we enabled with the host : container port 
+	ip:8080/transcations
+	
+===========================================
+
+		 
+major commands:
+	docker run -d --name backend backend:v1. -> to create a container with the specifc name 
+	docker run -d --network expense backend:v1.0 -> to run a container with in  a specifc network
+	
+===================================
+Cls:5 
