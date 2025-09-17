@@ -1,2 +1,2 @@
 ARG version
-FrOM almalinux:${version}
+FrOM almalinux:${version:-9}
